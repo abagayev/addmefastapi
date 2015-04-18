@@ -12,9 +12,13 @@ $addmefast = new AddMeFast(
         $config::get('other', 'cookie')
 );
 
-$addmefast->addSite('twitter/followers', 'nedavayruby', 5, 1);
+$site = ($addmefast->addSite('twitter/tweets', 'Amazing, AddMeFastAPI is working! http://goo.gl/av6ieV', 2, array('ukraine', 'germany', 'united states'), null, 1000, 200));
 
-$addmefast->getSites();
+print_r($site);
+
+print_r($addmefast->touchSite($site['id'], 'start'));
+
+print_r($addmefast->getSites());
 
 die;
 
