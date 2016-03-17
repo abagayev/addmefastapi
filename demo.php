@@ -1,24 +1,43 @@
-<pre><small>
 <?php
 
-require_once 'lib/config.class.php';
+require_once 'vendor/autoload.php';
 require_once 'addmefast.class.php';
 
-$config = new Config;
+// create an object of class
 
 $addmefast = new AddMeFast(
-        $config::get('addmefast', 'email'),
-        $config::get('addmefast', 'password'),
-        $config::get('other', 'cookie')
+        'YOUR ADDMEFAST LOGIN EMAIL',
+        'YOUR ADDMEFAST LOGIN PASSWORD'
 );
 
-$site = ($addmefast->addSite('twitter/tweets', 'Amazing, AddMeFastAPI is working! http://goo.gl/av6ieV', 2, array('ukraine', 'germany', 'united states'), null, 1000, 200));
+// create a message
+
+$date = (new \DateTime)->format('Y-m-d');
+$message = "Amazing, today is $date and AddMeFastAPI is working! http://goo.gl/av6ieV";
+
+// add site and show results
+
+$site = $addmefast->addSite(
+    'twitter/tweets',                        // site type
+    $message,                                // your message
+    2,                                       // points per click
+    ['ukraine', 'germany', 'united states'], // countries list
+    null,                                    // title for your site
+    1000,                                    // total clicks
+    200                                      // daily clicks
+);
 
 print_r($site);
 
-print_r($addmefast->touchSite($site['id'], 'start'));
+// start new site and show results
 
-print_r($addmefast->getSites());
+$result = $addmefast->touchSite($site['id'], 'start');
+print_r($result);
+
+// get list of your sites
+
+$sites = $addmefast->getSites();
+print_r($sites);
 
 die;
 
