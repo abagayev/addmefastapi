@@ -124,7 +124,7 @@ class AddMeFast {
      * @param string $site_type - list of types are in self::$site_types
      * @param string $subject - subject to share(url, message, account, etc)
      * @param int $points_per_click - cost per click for your site/page
-     * @param string or array $countries - country name or array of country names(list of countries are in self::$countries)
+     * @param string or array $countries - country name or array of country names(list of countries are in self::$countries) or null to create it worldwide
      * @param string $title - title for your site
      * @param int $total_clicks - limit for total clicks for this site / page
      * @param int $daily_clicks - limit for $daily_clicks for this site / page
@@ -187,9 +187,9 @@ class AddMeFast {
             'type' => $site_type,
             'url' => $subject,
             'cpc' => (int)$points_per_click,
+            'countries' => $countries ?: 'null',
         );
 
-        if (!empty($countries)) $params['countries'] = $countries;
         if (!empty($title)) $params['title'] = $title;
         if (!empty($total_clicks)) $params['clicks'] = (int)$total_clicks;
         if (!empty($daily_clicks)) $params['daily'] = (int)$daily_clicks;
